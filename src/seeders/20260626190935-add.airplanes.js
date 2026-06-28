@@ -22,6 +22,12 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        modelNumber: 'airbus340',
+        capacity: 900,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         modelNumber: 'boeing555',
         capacity: 504,
         createdAt: new Date(),

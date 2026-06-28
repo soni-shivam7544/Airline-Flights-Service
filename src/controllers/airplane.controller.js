@@ -20,6 +20,21 @@ async function createAirplane(req, res) {
     }
 }
 
+async function getAirplanes(req, res) {
+    try {
+        const response = await AirplaneService.getAirplanes();
+        SuccessResponse.data = response;
+        SuccessResponse.message = "Successfully fetched all the airplanes";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.message = 'Something went wrong while fetching the airplanes',
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
-    createAirplane
+    createAirplane,
+    getAirplanes
 }
