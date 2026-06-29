@@ -91,9 +91,31 @@ async function destroyAirplane(req, res) {
     }
 }
 
+/**
+ * PATCH: /airplane/:id
+ * @param {*} req params -> id, body -> data object to be updated with
+ * @param {*} res 
+ * @returns array containing only single element giving count of what no of row are updated
+ */
+
+async function updateAirplane(req, res) {
+    try {
+        const response = await AirplaneService.updateAirplane(req.params.id, req.body);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "Successfully updated the airplane";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.message = 'Something went wrong while updating the airplane',
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }
