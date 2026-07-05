@@ -11,6 +11,9 @@ router.post('/', FlightMiddleware.validateCreateRequest, FlightController.create
 // /api/v1/flights GET
 router.get('/', FlightController.getAllFlights);
 
+// /api/v1/flights/:id GET
+router.get('/:id', FlightController.getFlight);
+
 // /api/v1/flights/:id DELETE
 router.delete('/:id', FlightController.destroyFlight);
 

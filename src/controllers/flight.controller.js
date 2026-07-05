@@ -34,6 +34,13 @@ async function createFlight(req, res) {
     }
 }
 
+/**
+ * GET: /flights
+ * @param {*} req query -> trips, price, travellers, tripDate, sort
+ * @param {*} res
+ * @returns all the flights based on the query params
+ */
+
 async function getAllFlights(req, res) {
     try {
         const flights = await FlightService.getAllFlights(req.query);
@@ -43,6 +50,28 @@ async function getAllFlights(req, res) {
     } catch (error) {
         console.log(error);
         ErrorResponse.message = 'Something went wrong while fetching all flights';
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
+
+/**
+ * GET: /flights/:id
+ * @param {*} req params -> id
+ * @param {*} res 
+ * @returns the flight with the given id
+ */
+
+async function getFlight(req, res) {
+    try {
+        const response = await FlightService.getFlight(req.params.id);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "Successfully fetched the flight";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.message = 'Something went wrong while fetching the flight',
         ErrorResponse.error = error;
         return res.status(error.statusCode).json(ErrorResponse);
     }
@@ -94,5 +123,6 @@ module.exports = {
     createFlight,
     destroyFlight,
     updateFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
 }
