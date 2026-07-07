@@ -119,10 +119,25 @@ async function updateFlight(req, res) {
     }
 }
 
+async function updateSeats(req, res) {
+    try {
+        const response = await FlightService.updateSeats(req.params.id, req.body.seats, req.body.dec);
+        SuccessResponse.data = response;
+        SuccessResponse.message = "Successfully updated the flight seats";
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.message = 'Something went wrong while updating the flight seats',
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createFlight,
     destroyFlight,
     updateFlight,
+    updateSeats,
     getAllFlights,
     getFlight
 }

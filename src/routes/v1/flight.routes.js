@@ -20,5 +20,7 @@ router.delete('/:id', FlightController.destroyFlight);
 // /api/v1/flights/:id PATCH
 router.patch('/:id', FlightMiddleware.validateUpdateRequest, FlightController.updateFlight);
 
+// /api/v1/flights/:id/seats PATCH
+router.patch('/:id/seats', FlightMiddleware.validateSeatsUpdateRequest, FlightController.updateSeats);
 
 module.exports = router;

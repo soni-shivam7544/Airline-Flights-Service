@@ -105,10 +105,23 @@ async function updateFlight(id, data) {
     }
 }
 
+async function updateSeats(flightId, seats, dec) {
+    try {
+        const response = await flightRepository.updateRemainingSeats(flightId, seats, dec);
+        return response;
+    } catch(error) {
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('Flight not found', StatusCodes.NOT_FOUND);
+        }
+        throw new AppError('Cannot update the flight seats', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 module.exports = {
     createFlight,
     destroyFlight,
     updateFlight,
     getAllFlights,
-    getFlight
+    getFlight,
+    updateSeats
 }
